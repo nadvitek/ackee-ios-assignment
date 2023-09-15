@@ -23,7 +23,8 @@ struct MenuView: View {
                         Text(menuViewModel.menuSelected == .Rick ? "Characters" : "Favorites")
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                            .frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal)
                     }
                     if menuViewModel.characters.isEmpty && !menuViewModel.isFocused {
                         if (menuViewModel.menuSelected == .Rick) {

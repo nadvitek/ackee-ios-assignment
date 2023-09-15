@@ -21,7 +21,7 @@ struct CharacterDetailView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundColor(.item)
                     .frame(maxWidth: .infinity)
-                    .frame(height:  UIScreen.main.bounds.height * (verticalSizeClass == .compact ? 0.95 : 0.75))
+                    .frame(height:  UIScreen.main.bounds.height * (verticalSizeClass == .compact ? 0.85 : 0.75))
                     .shadow(radius: 20)
                     .padding()
                     .overlay {
@@ -31,7 +31,9 @@ struct CharacterDetailView: View {
                                 .foregroundColor(.gray.opacity(0.5))
                                 .frame(maxWidth: .infinity)
                                 .frame(height: abs(1))
+                            Spacer()
                             lowerPart
+                            Spacer()
                         }.padding()
                 }
                 Spacer()
@@ -51,10 +53,15 @@ struct CharacterDetailView: View {
     }
     
     var upperPart: some View {
-        HStack(spacing: 0){
-            AsyncImage(url: URL(string: char.image), scale: 2)
-                .cornerRadius(10)
-                .padding(.horizontal, 20)
+        HStack(alignment: .top, spacing: 0){
+            AsyncImage(url: URL(string: char.image)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(10)
+            } placeholder: {
+                ProgressView()
+            }.padding()
             VStack(alignment: .leading, spacing: 15) {
                 HStack{
                     Text("Name")
@@ -66,17 +73,16 @@ struct CharacterDetailView: View {
                         .foregroundColor(menuViewModel.isCharacterFavorite(char) ? .selected : .gray)
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 30)
-                        .padding(.horizontal, 20)
+                        .padding(.horizontal)
                         .onTapGesture {
                             menuViewModel.toggleCharacterFavorite(char)
                         }
-                }.padding(.top, 25)
+                }.padding(.top)
                 Text(char.name)
                     .fontWeight(.bold)
                     .font(.title3)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: 120, alignment: .leading)
-                Spacer()
             }
         }
     }
