@@ -15,14 +15,13 @@ import Combine
     
     @Published var searchText = ""
     @Published var menuSelected: MenuSelected = .Rick
+    
     @Published var fetchPage = false
-    @Published var isFocused: Bool = false
-    @Published var fetchingIsRunning = false
+    @Published private(set) var isFocused = false
+    @Published private(set) var fetchingIsRunning = true
 
     private var searchCancellable: AnyCancellable? = nil
-    
     private var apiManager: ApiManagerProtocol
-    
     private let logger = Logger(subsystem: "Rick and Morty", category: "CharacterViewModel")
     
     init(apiManager: ApiManagerProtocol) {
