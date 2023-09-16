@@ -30,6 +30,8 @@ class FavoriteApiManager: ApiManagerProtocol {
             guard let decodedResponse = try? JSONDecoder().decode([Character].self, from: data) else {
                 throw ApiError.DecodingDataError(description: error.description)
             }
+            
+            logger.info("Data retrieved and decoded of favorite characters.")
                 
             return decodedResponse
             

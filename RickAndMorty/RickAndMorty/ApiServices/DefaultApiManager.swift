@@ -37,6 +37,8 @@ class DefaultApiManager: ApiManagerProtocol {
                 self.maxPage = decodedResponse.info.pages
             }
             
+            logger.info("Data retrieved and decoded from page number \(self.pageNumber) out of \(self.maxPage) pages.")
+            
             pageNumber += 1
             
             return decodedResponse.results

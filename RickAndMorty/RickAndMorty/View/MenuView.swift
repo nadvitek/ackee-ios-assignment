@@ -26,15 +26,16 @@ struct MenuView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                     }
-                    if menuViewModel.characters.isEmpty && !menuViewModel.isFocused {
-                        if (menuViewModel.menuSelected == .Rick) {
-                            ProgressView()
-                                .frame(maxHeight: .infinity, alignment: .center)
-                        } else {
-                            Text("No favorites yet")
-                                .foregroundColor(.gray)
-                                .frame(maxHeight: .infinity, alignment: .center)
-                        }
+                    
+                    if menuViewModel.fetchingIsRunning && !menuViewModel.isFocused
+                        && !menuViewModel.fetchPage{
+                        ProgressView()
+                            .frame(maxHeight: .infinity, alignment: .center)
+                    } else if menuViewModel.characters.isEmpty && !menuViewModel.isFocused {
+                        Text(menuViewModel.menuSelected == .Rick ? "Characters couln't be loaded, try restart."
+                             : "No favorites yet")
+                        .foregroundColor(.gray)
+                        .frame(maxHeight: .infinity, alignment: .center)
                     } else {
                         MenuScrollView()
                             .environmentObject(menuViewModel)

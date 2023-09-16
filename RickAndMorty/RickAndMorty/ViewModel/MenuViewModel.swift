@@ -17,6 +17,7 @@ import Combine
     @Published var menuSelected: MenuSelected = .Rick
     @Published var fetchPage = false
     @Published var isFocused: Bool = false
+    @Published var fetchingIsRunning = false
 
     private var searchCancellable: AnyCancellable? = nil
     
@@ -48,6 +49,7 @@ import Combine
         if favoritesIds.contains(charId) {
             favoritesIds.remove(charId)
             if menuSelected == .Favorites {
+                self.fetchingIsRunning = true
                 characters = []
                 dataTask()
             }
@@ -87,6 +89,7 @@ import Combine
 extension MenuViewModel {
     
     private func switchApiStrategy() {
+        self.fetchingIsRunning = true
         characters = []
         if (menuSelected == .Favorites) {
             logger.info("Switching API strategy to favorite.")
@@ -113,15 +116,22 @@ extension MenuViewModel {
             } catch {
                 logger.error("Data couldn't be retrieved.")
             }
+            fetchingIsRunning = false
+            fetchPage = false
         }
     }
     
     func fetchAnotherPage() {
-        fetchPage = false
+        if (fetchingIsRunning) {
+            return
+        }
+        
         if (apiManager.somePagesLeft()) {
             logger.info("Fetching another page.")
+            fetchingIsRunning = true
             dataTask()
         } else {
+            fetchPage = false
             logger.info("There are no pages left.")
         }
     }

@@ -17,21 +17,33 @@ struct MenuScrollView: View {
                     SearchBarView()
                         .environmentObject(menuViewModel)
                 }
-                ForEach(menuViewModel.characters, id: \.id) { char in
-                    NavigationLink {
-                        CharacterDetailView(char: char)
-                            .environmentObject(menuViewModel)
-                            .navigationBarBackButtonHidden(true)
-                    } label: {
-                        CharacterListItemView(char: char)
-                            .environmentObject(menuViewModel)
-                            .padding(.vertical, menuViewModel.isFocused ? 0 : 5)
+                if (menuViewModel.fetchingIsRunning
+                    && menuViewModel.isFocused
+                    && !menuViewModel.fetchPage) {
+                    ProgressView()
+                        .frame(maxHeight: .infinity, alignment: .center)
+                } else if (menuViewModel.isFocused &&
+                           !menuViewModel.searchText.isEmpty &&
+                           menuViewModel.characters.isEmpty) {
+                    Text("No such character found.")
+                        .foregroundColor(.gray)
+                } else {
+                    ForEach(menuViewModel.characters, id: \.id) { char in
+                        NavigationLink {
+                            CharacterDetailView(char: char)
+                                .environmentObject(menuViewModel)
+                                .navigationBarBackButtonHidden(true)
+                        } label: {
+                            CharacterListItemView(char: char)
+                                .environmentObject(menuViewModel)
+                                .padding(.vertical, menuViewModel.isFocused ? 0 : 5)
+                        }
+                        
                     }
                     
+                    PaginationMechanism()
+                        .environmentObject(menuViewModel)
                 }
-                
-                PaginationMechanism()
-                    .environmentObject(menuViewModel)
             }
         }
     }
