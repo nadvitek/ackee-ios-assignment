@@ -50,7 +50,6 @@ struct MenuView: View {
                 }
             }
         }
-        .accentColor(.black)
     }
 }
 

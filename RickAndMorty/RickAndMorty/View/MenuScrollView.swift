@@ -41,8 +41,27 @@ struct MenuScrollView: View {
                         
                     }
                     
-                    PaginationMechanism()
-                        .environmentObject(menuViewModel)
+                    if menuViewModel.fetchPage && menuViewModel.menuSelected == .Rick {
+                        ProgressView()
+                            .padding(.vertical)
+                            .onAppear {
+                                menuViewModel.fetchAnotherPage()
+                            }
+                    } else {
+                        GeometryReader { geo -> Color in
+                            let minY = geo.frame(in: .global).minY
+                            
+                            let height = UIScreen.main.bounds.height / 1.3
+                            
+                            if !menuViewModel.characters.isEmpty && minY < height {
+                                DispatchQueue.main.async {
+                                    menuViewModel.fetchPage = true
+                                }
+                            }
+                            
+                            return Color.clear
+                        }
+                    }
                 }
             }
         }
@@ -57,5 +76,8 @@ struct MenuScrollView_Previews: PreviewProvider {
 }
 
 func urlFunc(page: Int?) -> String {
-    return "https://rickandmortyapi.com/api/character?page=\(page!)"
+    guard let safePage = page else {
+        return "https://rickandmortyapi.com/api/character?page=1"
+    }
+    return "https://rickandmortyapi.com/api/character?page=\(safePage)"
 }
