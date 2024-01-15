@@ -17,4 +17,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Update GH Page
-      run: (xcrun --find docc) process-archive transform-for-static-hosting ./RickAndMorty/to/MyPackage.doccarchive --hosting-base-path ackee-ios-assignment --output-path docs;
+      run: (xcrun --find docc) process-archive transform-for-static-hosting ./RickAndMorty/ACKategories.doccarchive --hosting-base-path ackee-ios-assignment --output-path docs;
