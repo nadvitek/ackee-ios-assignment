@@ -1,0 +1,4 @@
+module SDWebImage {
+umbrella header "/Users/vitnademlejnsky/Desktop/Práce/IT/iOS_development/Assignments/Ackee-RM/ackee-ios-assignment/RickAndMorty/docbuild/SourcePackages/checkouts/SDWebImage/SDWebImage/include/SDWebImage/SDWebImage.h"
+export *
+}

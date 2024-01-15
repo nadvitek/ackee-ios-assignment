@@ -1,0 +1,11 @@
+Target dependency graph (5 targets)
+Target 'RickAndMorty' in project 'RickAndMorty'
+➜ Explicit dependency on target 'SDWebImageSwiftUI' in project 'SDWebImageSwiftUI'
+Target 'SDWebImageSwiftUI' in project 'SDWebImageSwiftUI'
+➜ Explicit dependency on target 'SDWebImageSwiftUI' in project 'SDWebImageSwiftUI'
+➜ Explicit dependency on target 'SDWebImage' in project 'SDWebImage'
+Target 'SDWebImageSwiftUI' in project 'SDWebImageSwiftUI'
+➜ Explicit dependency on target 'SDWebImage' in project 'SDWebImage'
+Target 'SDWebImage' in project 'SDWebImage'
+➜ Explicit dependency on target 'SDWebImage' in project 'SDWebImage'
+Target 'SDWebImage' in project 'SDWebImage' (no dependencies)
